@@ -31,6 +31,7 @@ defmodule Guardex.Mixfile do
     [{:phoenix, "~> 0.17"},
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:guardian, "~> 0.4.0"},
      {:cowboy, "~> 1.0"}]
   end
 end

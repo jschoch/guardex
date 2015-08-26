@@ -1,5 +1,17 @@
 defmodule Guardex do
   use Application
+  require Logger
+  defstruct id: nil
+  def for_token(user = %Guardex{}), do: { :ok, "#{__MODULE__}:#{user.id}" }
+  def for_token(_), do: { :error, "Unknown resource type" }
+
+  #def from_token("#{__MODULE__}:" <> id), do: { :ok, %Guardex{id: id} }
+  def from_token("Guardex:" <> id), do: { :ok, %Guardex{id: id} }
+  def from_token(bad) do
+    Logger.warn "bad token resource: " <> inspect bad
+   { :error, "Unknown resource type" }
+  end
+
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
