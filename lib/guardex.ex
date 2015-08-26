@@ -2,7 +2,7 @@ defmodule Guardex do
   use Application
   require Logger
   defstruct id: nil
-  def for_token(user = %Guardex{}), do: { :ok, "#{__MODULE__}:#{user.id}" }
+  def for_token(user = %Guardex{}), do: { :ok, "Guardex:#{user.id}" }
   def for_token(_), do: { :error, "Unknown resource type" }
 
   #def from_token("#{__MODULE__}:" <> id), do: { :ok, %Guardex{id: id} }

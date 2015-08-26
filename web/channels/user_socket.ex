@@ -1,6 +1,6 @@
 defmodule Guardex.UserSocket do
   use Phoenix.Socket
-
+  require Logger
   ## Channels
   # channel "rooms:*", Guardex.RoomChannel
 
@@ -19,6 +19,17 @@ defmodule Guardex.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
+  def connect(%{token: token}, socket) do
+    case Guardian.verify(token) do
+      { :ok, claims } ->
+        Logger.warn "verified claims: " <> inspect claims
+        socket = assign(socket,:claims,claims)
+        {:ok,socket}
+      { :error, reason } ->
+        Logger.warn "sad face :( #{reason}"
+        { :error,  :authentication_failed}
+    end
+  end
   def connect(_params, socket) do
     {:ok, socket}
   end
