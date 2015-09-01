@@ -20,7 +20,7 @@ defmodule Guardex.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(%{token: token}, socket) do
-    case Guardian.verify(token) do
+    case Guardian.decode_and_verify(token) do
       { :ok, claims } ->
         Logger.warn "verified claims: " <> inspect claims
         socket = assign(socket,:claims,claims)

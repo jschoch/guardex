@@ -5,7 +5,7 @@ defmodule MyGTest do
   @endpoint Guardex.Endpoint
   test "socket auth works" do
     st = %Guardex{id: 123}
-    { :ok, jwt, full_claims } = Guardian.mint(st, :token, perms: %{ default: [:read, :write]})
+    { :ok, jwt, full_claims } = Guardian.encode_and_sign(st, :token, perms: %{ default: [:read, :write]})
     auth = %{token: jwt}
     s = socket()
     {:ok, s} = Guardex.UserSocket.connect(auth,s)
@@ -19,7 +19,7 @@ defmodule MyGTest do
   end
   test " join chan works" do
     st = %Guardex{id: 123}
-    { :ok, jwt, full_claims } = Guardian.mint(st, :token, perms: %{ default: [:read, :write]})
+    { :ok, jwt, full_claims } = Guardian.encode_and_sign(st, :token, perms: %{ default: [:read, :write]})
     auth = %{token: jwt}
     s = socket()
     {:ok, s} = Guardex.UserSocket.connect(auth,s)

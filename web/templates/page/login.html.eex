@@ -1,0 +1,7 @@
+<form method=post action=/login>
+  user name: <input type=text name=username> </input>
+  pass: <input type=password name=pass> </input>
+  <input type=hidden name="_csrf_token" 
+  value="<%=  Plug.CSRFProtection.get_csrf_token %>">
+  <input type=submit>Go</input>
+</form>
